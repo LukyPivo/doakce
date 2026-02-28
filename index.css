@@ -1,0 +1,212 @@
+/* ── RESET ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #d114a275;
+  --surface: #ffffff;
+  --border:  #ecddc8;
+  --accent:  #32be0f;
+  --warm:    #4623c5;
+  --text:    #000000;
+  --muted:   #000000;
+  --danger:  #d93025;
+  --panel:   380px;
+  --ease:    cubic-bezier(.77,0,.18,1);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUND GLOW ─────────────────────────── */
+.grain {
+  pointer-events: none;
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 15% 100%,   rgba(35, 245, 70, 0.863) 75%, transparent 100%),
+    radial-gradient(ellipse 55% 45% at 88% 100%,  rgba(13, 51, 177, 0.767) 75%, transparent 100%),
+    radial-gradient(ellipse 40% 35% at 60% 100%,   rgba(255, 15, 223, 0.76) 75%, transparent 100%);
+}
+
+/* ── STAGE ───────────────────────────────────── */
+.stage {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 4rem 2rem;
+  position: relative;
+  transition: margin-right .4s var(--ease);
+}
+.stage.shifted { margin-right: var(--panel); }
+
+/* ── COUNTER ─────────────────────────────────── */
+.counter-block { text-align: center; position: relative; z-index: 1; }
+
+.over-label {
+  display: block;
+  font-size: .68rem; font-weight: 500; letter-spacing: .55em;
+  color: var(--muted); text-transform: uppercase; margin-bottom: .4rem;
+}
+
+.number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(7rem, 22vw, 20rem);
+  line-height: .88;
+  letter-spacing: -.02em;
+  background: linear-gradient(145deg, var(--warm) 0%, var(--accent) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 6px 32px rgba(232,96,28,.18));
+  animation: rise .75s var(--ease) both;
+}
+
+.under-label {
+  font-size: .68rem; letter-spacing: .4em; color: var(--muted);
+  text-transform: uppercase; margin-top: .75rem;
+  animation: rise .75s .1s var(--ease) both;
+}
+
+/* ── MESSAGE BOX ─────────────────────────────── */
+.message-box {
+  position: relative; z-index: 1;
+  max-width: 580px; width: 100%;
+  margin-top: 2.75rem;
+  padding: 1.6rem 2rem;
+  background: rgba(250, 5, 209, 0.205);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 2px 24px rgba(180,100,30,.07);
+  animation: rise .75s .2s var(--ease) both;
+}
+
+.message-text {
+  font-size: .95rem; line-height: 1.8;
+  color: #000000;
+  white-space: pre-wrap; word-break: break-word;
+}
+
+/* ── GEAR BUTTON ─────────────────────────────── */
+.gear-btn {
+  position: fixed; bottom: 1.4rem; right: 1.4rem;
+  width: 2.4rem; height: 2.4rem;
+  background: white; border: 1px solid var(--border);
+  border-radius: 50%; color: var(--muted); font-size: 1rem;
+  cursor: pointer; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,.07);
+  transition: all .2s;
+}
+.gear-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 4px 18px rgba(232,96,28,.15);
+}
+
+/* ── DRAWER ──────────────────────────────────── */
+.drawer {
+  position: fixed; top: 0; right: 0;
+  width: var(--panel); height: 100%;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: -6px 0 36px rgba(0,0,0,.07);
+  transform: translateX(100%);
+  transition: transform .4s var(--ease);
+  z-index: 300; overflow-y: auto;
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer-inner {
+  padding: 2rem 1.75rem;
+  display: flex; flex-direction: column; gap: .85rem;
+}
+
+.drawer-header {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: .25rem;
+}
+
+.drawer-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem; letter-spacing: .15em;
+  color: var(--accent);
+}
+
+.close-btn {
+  background: none; border: none; color: var(--muted);
+  font-size: 1rem; cursor: pointer; padding: .25rem .5rem;
+  transition: color .15s;
+}
+.close-btn:hover { color: var(--text); }
+
+/* ── FORM ELEMENTS ───────────────────────────── */
+.hint { font-size: .8rem; color: var(--muted); line-height: 1.55; }
+
+.lbl {
+  display: block;
+  font-size: .63rem; font-weight: 500; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted);
+  margin-top: .2rem; margin-bottom: .32rem;
+}
+
+.inp {
+  width: 100%;
+  background: #fdf8f3;
+  border: 1px solid var(--border); border-radius: 4px;
+  color: var(--text); font-family: 'DM Sans', sans-serif;
+  font-size: .88rem; padding: .6rem .85rem; outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.inp:focus {
+  border-color: var(--warm);
+  box-shadow: 0 0 0 3px rgba(245,166,35,.12);
+}
+.inp::placeholder { color: #cbb89a; }
+.textarea { resize: vertical; min-height: 110px; }
+
+/* ── BUTTONS ─────────────────────────────────── */
+.btn-primary, .btn-logout {
+  width: 100%; padding: .65rem 1rem;
+  border: none; border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .82rem; font-weight: 500; letter-spacing: .05em;
+  cursor: pointer; transition: opacity .15s, transform .1s;
+}
+.btn-primary {
+  background: linear-gradient(120deg, var(--warm), var(--accent));
+  color: white;
+  box-shadow: 0 2px 12px rgba(232,96,28,.22);
+}
+.btn-primary:hover { opacity: .88; }
+.btn-logout {
+  background: transparent;
+  border: 1px solid #e8c0b0;
+  color: var(--danger);
+}
+.btn-logout:hover { background: rgba(217,48,37,.05); }
+.btn-primary:active, .btn-logout:active { transform: scale(.98); }
+
+/* ── MISC ────────────────────────────────────── */
+.sep { border: none; border-top: 1px solid var(--border); }
+.err-msg { font-size: .78rem; color: var(--danger); min-height: 1em; }
+.status   { font-size: .78rem; color: var(--accent); min-height: 1em; }
+.logged-as { font-size: .75rem; color: var(--muted); }
+.logged-as strong { color: var(--text); }
+.hidden { display: none !important; }
+
+/* ── ANIMATIONS ──────────────────────────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ──────────────────────────────── */
+@media (max-width: 480px) {
+  :root { --panel: 100vw; }
+  .stage.shifted { margin-right: 0; }
+}

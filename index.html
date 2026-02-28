@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Počítadlo dní</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║        HLAVNÍ OBRAZOVKA         ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <main class="stage" id="stage">
+    <div class="grain"></div>
+
+    <div class="counter-block">
+      <span class="over-label">ZBÝVÁ</span>
+      <div class="number" id="days-number">–</div>
+      <div class="under-label" id="since-text"></div>
+    </div>
+
+    <div class="message-box" id="message-box">
+      <div class="message-text" id="message-text">Načítám…</div>
+    </div>
+
+    <!-- malé tlačítko admina ────────────── -->
+    <button class="gear-btn" id="gear-btn" title="Admin">⚙</button>
+  </main>
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║          ADMIN PANEL             ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <aside class="drawer" id="drawer">
+    <div class="drawer-inner">
+
+      <div class="drawer-header">
+        <span class="drawer-title">ADMIN</span>
+        <button class="close-btn" id="close-btn">✕</button>
+      </div>
+
+      <!-- ── přihlášení ── -->
+      <div id="view-login">
+        <p class="hint">přihlaš se</p>
+        <label class="lbl">E-mail</label>
+        <input class="inp" type="email" id="inp-email" placeholder="admin@example.com" />
+        <label class="lbl">Heslo</label>
+        <input class="inp" type="password" id="inp-pass" placeholder="••••••••" />
+        <button class="btn-primary" id="btn-login">Přihlásit se</button>
+        <p class="err-msg" id="login-err"></p>
+      </div>
+
+      <!-- ── editor (po přihlášení) ── -->
+      <div id="view-edit" class="hidden">
+        <p class="logged-as">Přihlášen: <strong id="logged-email"></strong></p>
+
+        <label class="lbl">Text pod počítadlem</label>
+        <textarea class="inp textarea" id="inp-text" rows="6"></textarea>
+        <button class="btn-primary" id="btn-save-text">💾 Uložit text</button>
+
+        <div class="sep"></div>
+
+        <label class="lbl">Datum začátku počítání</label>
+        <input class="inp" type="date" id="inp-date" />
+        <button class="btn-primary" id="btn-save-date">💾 Uložit datum</button>
+
+        <div class="sep"></div>
+
+        <button class="btn-logout" id="btn-logout">Odhlásit se</button>
+      </div>
+
+      <p class="status" id="status"></p>
+    </div>
+  </aside>
+
+  <!-- ╔══════════════════════════════════╗ -->
+  <!-- ║     FIREBASE SDK (z CDN)         ║ -->
+  <!-- ╚══════════════════════════════════╝ -->
+  <script type="module" src="index.js"></script>
+</body>
+</html>
